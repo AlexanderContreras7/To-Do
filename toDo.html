@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kanban con Shoelace</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/themes/light.css" />
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/shoelace-autoloader.js"></script>
+    <link rel="stylesheet" href="/toDo.css" />
+  </head>
+  <body>
+    <div id="agregarTarea">
+      <sl-button id="openDialogBtn" variant="primary">Agregar Tarea</sl-button>
+    </div>
+
+    <sl-dialog id="addTaskDialog" label="Agregar Nueva Tarea">
+      <form id="addTaskForm">
+        <sl-input label="Título de la tarea" name="taskTitle" id="taskTitle" required></sl-input>
+
+        <sl-select label="Asignar a" name="taskUser" id="taskUser">
+          <sl-option value="andrew">Andrew Fuller</sl-option>
+          <sl-option value="janet">Janet Leverling</sl-option>
+        </sl-select>
+
+        <sl-select label="Categoría" name="taskCategory" id="taskCategory" hoist>
+          <sl-option value="todo">To Do</sl-option>
+          <sl-option value="in-progress">In Progress</sl-option>
+          <sl-option value="review">In Review</sl-option>
+          <sl-option value="done">Done</sl-option>
+        </sl-select>
+
+        <div class="actions">
+          
+          <sl-button type="submit" variant="success" id="submitTaskBtn">Agregar Tarea</sl-button>
+          <sl-button type="button" variant="danger" id="cancelBtn">Cancelar</sl-button>
+        </div>
+      </form>
+    </sl-dialog>
+
+    <table>
+      <thead>
+        <tr>
+          <th><sl-icon name="list"></sl-icon> To Do</th>
+          <th><sl-icon name="clock"></sl-icon> In Progress</th>
+          <th><sl-icon name="eye"></sl-icon> In Review</th>
+          <th><sl-icon name="check-circle"></sl-icon> Done</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="user-group" onclick="toggleUserTasks('andrew')">
+          <td colspan="4">
+            Andrew Fuller - 
+            <span id="andrew-count">
+              <sl-skeleton effect="sheen" style="--sheen-color: #cacaca; width: 5%;"></sl-skeleton>
+            </span> items
+          </td>
+        </tr>
+        <tr id="andrew" class="user-tasks" style="display: none;">
+          <td class="column" id="todo-andrew" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+          <td class="column" id="in-progress-andrew" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+          <td class="column" id="review-andrew" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+          <td class="column" id="done-andrew" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+        </tr>
+
+        <tr class="user-group" onclick="toggleUserTasks('janet')">
+          <td colspan="4">
+            Janet Leverling - 
+            <span id="janet-count">
+              <sl-skeleton effect="sheen" style="--sheen-color: #cacaca; width: 5%;"></sl-skeleton>
+            </span> items
+          </td>
+        </tr>
+        <tr id="janet" class="user-tasks" style="display: none;">
+          <td class="column" id="todo-janet" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+          <td class="column" id="in-progress-janet" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+          <td class="column" id="review-janet" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+          <td class="column" id="done-janet" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <script src="/toDo.js"></script>
+  </body>
+</html>
